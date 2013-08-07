@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<description>Example configuration to get you started.</description>
+
+	<context:component-scan base-package="hs.choi.geotools" />
+
+
+
+	<!-- DataSource 설정 : DB 커넥션 정보를 설정 -->
+	<!-- <bean id="dataSource"
+		class="hs.choi.spring.project.MyDriverManagerDataSource"> -->
+		
+		<bean id="dataSource"
+				class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>org.postgresql.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:postgresql://localhost/test_routing</value>
+		</property>
+		<property name="username">
+			<value>postgres</value>
+		</property>
+		<property name="password">
+			<value>postgres</value>
+		</property>
+	</bean>
+	<context:property-placeholder location="jdbc.properties" />
+
+
+	<!-- dataSource를 여기서 받아오네 -->
+	<bean id="DAOgeometry" class="hs.choi.spring.project.DAOGeometry">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="geometrytofeature" class="hs.choi.spring.project.GeometryToFeature" />
+	
+	<bean id="drawmap" class="hs.choi.spring.project.DrawMap" >
+	</bean>
+	
+	
+	
+	<!-- 
+	
+	<bean id="quickstart" class="hs.choi.geotools.Quickstart" />
+
+	<bean id="myproject" class="hs.choi.geotools.MyProject" />
+	
+	
+	
+	<bean id="seoulgu" class="hs.choi.spring.dao.DAOGu">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<bean id="seouldong" class="hs.choi.spring.dao.DAODong">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="seoulroad" class="hs.choi.spring.dao.DAORoad">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="seoulpoi" class="hs.choi.spring.dao.DAOPoi">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	-->
+
+</beans>
